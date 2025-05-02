@@ -1,0 +1,1 @@
+sudo apt-get install libxrandr-dev libx11-dev libfreetype6-dev libfontconfig1-dev libgl1-mesa-dev libcurl4-openssl-dev libxinerama-dev libgtk-3-dev  libasound2-dev libwebkit2gtk-4.0-0

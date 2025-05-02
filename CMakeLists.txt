@@ -40,6 +40,7 @@ endif()
 
 
 add_subdirectory(my_plagin)
+add_subdirectory(Audio_Plagin_Host)
 add_subdirectory(test)
 
 
