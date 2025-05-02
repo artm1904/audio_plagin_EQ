@@ -9,6 +9,8 @@
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
+#include <juce_dsp/juce_dsp.h>
+
 
 //==============================================================================
 /**
@@ -57,7 +59,20 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
   static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
   juce::AudioProcessorValueTreeState apvts{*this, nullptr, "Patametrs", createParameterLayout()};
 
+  //======================My_user_code_end_here================================
+
  private:
+  //======================My_user_code_begin_here================================
+
+  using Filter = juce::dsp::IIR::Filter<float>;
+  using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter>;
+  using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
+
+  MonoChain leftChain, rightChain;
+
+
+  //======================My_user_code_end_here================================
+
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessor)
 };

@@ -10,6 +10,7 @@
 
 #include "eq_plagin/PluginEditor.h"
 
+
 //==============================================================================
 TestpluginAudioProcessor::TestpluginAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -74,6 +75,13 @@ void TestpluginAudioProcessor::changeProgramName(int index, const juce::String &
 void TestpluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
+
+  juce::dsp::ProcessSpec spec;
+  spec.maximumBlockSize = samplesPerBlock;
+  spec.numChannels = 1;
+  spec.sampleRate = sampleRate;
+  leftChain.prepare(spec);
+  rightChain.prepare(spec);
 }
 
 void TestpluginAudioProcessor::releaseResources() {
@@ -124,6 +132,18 @@ void TestpluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // the samples and the outer loop is handling the channels.
   // Alternatively, you can process the samples with the channels
   // interleaved by keeping the same state.
+
+
+  juce::dsp::AudioBlock<float> block(buffer);
+  auto leftBlock = block.getSingleChannelBlock(0);
+  auto rightBlock = block.getSingleChannelBlock(1);
+
+  juce::dsp::ProcessContextReplacing<float> leftContext(leftBlock);
+  juce::dsp::ProcessContextReplacing<float> rightContext(rightBlock);
+
+  leftChain.process(leftContext);
+  rightChain.process(rightContext);
+
   for (int channel = 0; channel < totalNumInputChannels; ++channel) {
     auto *channelData = buffer.getWritePointer(channel);
 
@@ -137,9 +157,8 @@ bool TestpluginAudioProcessor::hasEditor() const {
 }
 
 juce::AudioProcessorEditor *TestpluginAudioProcessor::createEditor() {
-  //return new TestpluginAudioProcessorEditor(*this);
-   return new juce::GenericAudioProcessorEditor(*this);
-
+  // return new TestpluginAudioProcessorEditor(*this);
+  return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -193,6 +212,8 @@ TestpluginAudioProcessor::createParameterLayout() {
 
   return layout;
 }
+
+//======================My_user_code_end_here================================
 
 //==============================================================================
 // This creates new instances of the plugin..
