@@ -3,7 +3,7 @@
 
 namespace eq_plagin_test {
 TEST(EQ_Plagin, Foo) {
-  AudioPluginAudioProcessor processor();
+  TestpluginAudioProcessor processor();
   ASSERT_FALSE(true);
 }
 
