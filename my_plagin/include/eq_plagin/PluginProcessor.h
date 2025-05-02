@@ -52,6 +52,11 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
   void getStateInformation(juce::MemoryBlock &destData) override;
   void setStateInformation(const void *data, int sizeInBytes) override;
 
+  //======================My_user_code_begin_here================================
+
+  static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
+  juce::AudioProcessorValueTreeState apvts{*this, nullptr, "Patametrs", createParameterLayout()};
+
  private:
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessor)
