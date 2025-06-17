@@ -1,19 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(eq_plagin VERSION 0.1.0)
-
-
-
-if(DEFINED ENV{AAX_SDK_PATH})
-    set(AAX_SDK_PATH $ENV{AAX_SDK_PATH})
-endif()
-if(DEFINED AAX_SDK_PATH)
-    set(AAX_BUILD_FLAG AAX)
-    file(TO_CMAKE_PATH "${AAX_SDK_PATH}" AAX_SDK_CMAKE_PATH)
-    message(STATUS "AAX Build is enabled. AAX SDK = " ${AAX_SDK_CMAKE_PATH})
-    juce_set_aax_sdk_path(${AAX_SDK_CMAKE_PATH})
-else()
-    message(STATUS "AAX Build is disabled. To enable, set AAX_SDK_PATH to your environment variable or specify -DAAX_SDK_PATH to CMake configure option.")
-endif()
+project(play_audio VERSION 0.1.0)
 
 
 
@@ -21,10 +7,10 @@ juce_add_plugin(${PROJECT_NAME}
     # VERSION ...                                     # Set this if the plugin version is different to the project version
     # ICON_BIG ""   # ICON_* arguments specify a path to an image file to use as an icon for the Standalone
     #   ICON_SMALL "${CMAKE_SOURCE_DIR}/Assets/icon16.png " 
-    COMPANY_NAME "atm1904" # Specify the name of the plugin's author
-    COMPANY_COPYRIGHT "artm1904"
+    COMPANY_NAME "play_audio" # Specify the name of the plugin's author
+    COMPANY_COPYRIGHT "play_audio"
     COMPANY_WEBSITE "http://artm1904.www"
-    COMPANY_EMAIL "artm@1904.com"
+    COMPANY_EMAIL "aplay_audioartm@1904.com"
     IS_SYNTH FALSE # Is this a synth or an effect?
     NEEDS_MIDI_INPUT FALSE # Does the plugin need midi input?
     NEEDS_MIDI_OUTPUT FALSE # Does the plugin need midi output?
@@ -52,19 +38,14 @@ juce_add_plugin(${PROJECT_NAME}
     # DESCRIPTION "" #when i set this option, the name of AAX plugin became this description(bug?)
     MICROPHONE_PERMISSION_ENABLED TRUE
     MICROPHONE_PERMISSION_TEXT "This applicaion requires a permission to use an audio input device of your computer. By Default, Built-In microphone will be used."
-    PRODUCT_NAME "eq_plagin"
-)
-
-juce_add_binary_data(JuceLogoBinary
-    SOURCES
-    assets/juce-logo.svg
-    )
+    PRODUCT_NAME "play_audio"
+) 
 
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-    source/PluginEditor.cpp
-    source/PluginProcessor.cpp
+    src/PluginEditor.cpp
+    src/PluginProcessor.cpp
 )
 
 target_include_directories(${PROJECT_NAME}
@@ -88,7 +69,6 @@ target_link_libraries(${PROJECT_NAME}
     # AudioPluginData           # If we'd created a binary data target, we'd link to it here
     juce::juce_audio_utils
     PUBLIC
-    JuceLogoBinary
     juce::juce_recommended_config_flags
     juce::juce_recommended_lto_flags
     juce::juce_recommended_warning_flags

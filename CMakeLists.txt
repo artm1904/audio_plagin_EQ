@@ -38,9 +38,16 @@ if(GCC)
     )
 endif()
 
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(
+        -Wall
+        -Wextra
+        -pedantic
+    )
+endif()
+
 
 add_subdirectory(my_plagin)
+add_subdirectory(play_audio)
 add_subdirectory(Audio_Plagin_Host)
 add_subdirectory(test)
-
-

@@ -7,19 +7,20 @@
 */
 
 #include "eq_plagin/PluginEditor.h"
+
 #include <BinaryData.h>
+
 #include "eq_plagin/PluginProcessor.h"
 
 //==============================================================================
-TestpluginAudioProcessorEditor::TestpluginAudioProcessorEditor(
-    TestpluginAudioProcessor &p)
+TestpluginAudioProcessorEditor::TestpluginAudioProcessorEditor(TestpluginAudioProcessor &p)
     : AudioProcessorEditor(&p), audioProcessor(p) {
   // Make sure that before the constructor has finished, you've set the
   // editor's size to whatever you need it to be.
   setSize(400, 300);
-  //load Image from BinaryData
-  svgimg = juce::Drawable::createFromImageData(BinaryData::jucelogo_svg,
-                                               BinaryData::jucelogo_svgSize);
+  // load Image from BinaryData
+  svgimg =
+      juce::Drawable::createFromImageData(BinaryData::jucelogo_svg, BinaryData::jucelogo_svgSize);
 }
 
 TestpluginAudioProcessorEditor::~TestpluginAudioProcessorEditor() {}
@@ -28,15 +29,12 @@ TestpluginAudioProcessorEditor::~TestpluginAudioProcessorEditor() {}
 void TestpluginAudioProcessorEditor::paint(juce::Graphics &g) {
   // (Our component is opaque, so we must completely fill the background with a
   // solid colour)
-  g.fillAll(
-      getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
-  svgimg->drawWithin(g, getLocalBounds().toFloat(),
-                     juce::Justification::centred, 1);
+  g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
+  svgimg->drawWithin(g, getLocalBounds().toFloat(), juce::Justification::centred, 1);
 
   g.setColour(juce::Colours::black);
   g.setFont(30.0f);
-  g.drawFittedText("Hello World!", getLocalBounds(),
-                   juce::Justification::centred, 1);
+  g.drawFittedText("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
 }
 
 void TestpluginAudioProcessorEditor::resized() {

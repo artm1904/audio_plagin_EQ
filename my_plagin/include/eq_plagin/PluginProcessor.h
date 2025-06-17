@@ -11,7 +11,6 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
-
 //==============================================================================
 /**
  */
@@ -69,7 +68,6 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
   using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
 
   MonoChain leftChain, rightChain;
-
 
   //======================My_user_code_end_here================================
 

@@ -10,7 +10,6 @@
 
 #include "eq_plagin/PluginEditor.h"
 
-
 //==============================================================================
 TestpluginAudioProcessor::TestpluginAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
@@ -101,7 +100,7 @@ bool TestpluginAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts
       layouts.getMainOutputChannelSet() != juce::AudioChannelSet::stereo())
     return false;
 
-    // This checks if the input layout matches the output layout
+  // This checks if the input layout matches the output layout
 #if !JucePlugin_IsSynth
   if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet()) return false;
 #endif
@@ -132,7 +131,6 @@ void TestpluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   // the samples and the outer loop is handling the channels.
   // Alternatively, you can process the samples with the channels
   // interleaved by keeping the same state.
-
 
   juce::dsp::AudioBlock<float> block(buffer);
   auto leftBlock = block.getSingleChannelBlock(0);
