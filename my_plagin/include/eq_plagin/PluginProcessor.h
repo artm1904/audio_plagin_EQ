@@ -11,7 +11,6 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
-
 enum Slope {
   Slope_12,
   Slope_24,
@@ -90,6 +89,13 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
 
   //======================My_user_code_end_here================================
 
+  void updatePeakFilter(const ChainSettings &chainSettings);
+
+  using Coefficients = Filter::CoefficientsPtr;
+  static void updateCoefficients(Coefficients &old, const Coefficients &replacements);
+
+
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessor)
 };
+ 
