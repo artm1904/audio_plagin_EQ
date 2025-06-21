@@ -11,6 +11,14 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_dsp/juce_dsp.h>
 
+struct ChainSettings {
+  float peakFreq{0}, peakGainInDecibels{0}, peakQuality{1.f};
+  float lowCutFreq{0}, highCutFreq{0};
+  int lowCutSlope{0}, highCutSlope{0};
+};
+
+ChainSettings getChainSettings(juce::AudioProcessorValueTreeState &apvts);
+
 //==============================================================================
 /**
  */
@@ -56,7 +64,8 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
   //======================My_user_code_begin_here================================
 
   static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
-  juce::AudioProcessorValueTreeState apvts{*this, nullptr, "Patametrs", createParameterLayout()};
+  juce::AudioProcessorValueTreeState apvts{*this, nullptr, "Parametrs",
+                                           createParameterLayout()};
 
   //======================My_user_code_end_here================================
 
@@ -68,6 +77,8 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
   using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
 
   MonoChain leftChain, rightChain;
+
+  enum ChainPositions { LowCut, Peak, HighCut };
 
   //======================My_user_code_end_here================================
 
