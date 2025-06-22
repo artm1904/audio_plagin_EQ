@@ -33,10 +33,14 @@ class TestpluginAudioProcessorEditor : public juce::AudioProcessorEditor {
   // access the processor object that created it.
   TestpluginAudioProcessor &audioProcessor;
 
-  CustomRotarySlider peakFreqSlider, peakGainSlider, peakQualitySlider,
-      lowCutFreqSlider, highCutFreqSlider;
+  CustomRotarySlider peakFreqSlider, peakGainSlider, peakQualitySlider, lowCutFreqSlider,
+      highCutFreqSlider, lowCutSlopeSlider, highCutSlopeSlider;
 
-  CustomRotarySlider lowCutSlopeSlider, highCutSlopeSlider;
+  using APVTS = juce::AudioProcessorValueTreeState;
+  using Attachment = APVTS::SliderAttachment;
+  Attachment peakFreqSliderAttachment, peakGainSliderAttachment, peakQualitySliderAttachment,
+      lowCutFreqSliderAttachment, highCutFreqSliderAttachment, lowCutSlopeSliderAttachment,
+      highCutSlopeSliderAttachment;
 
   std::vector<juce::Component *> getComps();
 
