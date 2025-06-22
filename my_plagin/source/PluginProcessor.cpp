@@ -28,9 +28,7 @@ TestpluginAudioProcessor::TestpluginAudioProcessor()
 TestpluginAudioProcessor::~TestpluginAudioProcessor() {}
 
 //==============================================================================
-const juce::String TestpluginAudioProcessor::getName() const {
-  return JucePlugin_Name;
-}
+const juce::String TestpluginAudioProcessor::getName() const { return JucePlugin_Name; }
 
 bool TestpluginAudioProcessor::acceptsMidi() const {
 #if JucePlugin_WantsMidiInput
@@ -70,12 +68,10 @@ void TestpluginAudioProcessor::setCurrentProgram(int index) {}
 
 const juce::String TestpluginAudioProcessor::getProgramName(int index) { return {}; }
 
-void TestpluginAudioProcessor::changeProgramName(int index,
-                                                 const juce::String &newName) {}
+void TestpluginAudioProcessor::changeProgramName(int index, const juce::String &newName) {}
 
 //==============================================================================
-void TestpluginAudioProcessor::prepareToPlay(double sampleRate,
-                                             int samplesPerBlock) {
+void TestpluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBlock) {
   // Use this method as the place to do any pre-playback
   // initialisation that you need..
 
@@ -99,8 +95,7 @@ void TestpluginAudioProcessor::releaseResources() {
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool TestpluginAudioProcessor::isBusesLayoutSupported(
-    const BusesLayout &layouts) const {
+bool TestpluginAudioProcessor::isBusesLayoutSupported(const BusesLayout &layouts) const {
 #if JucePlugin_IsMidiEffect
   juce::ignoreUnused(layouts);
   return true;
@@ -113,8 +108,7 @@ bool TestpluginAudioProcessor::isBusesLayoutSupported(
 
   // This checks if the input layout matches the output layout
 #if !JucePlugin_IsSynth
-  if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet())
-    return false;
+  if (layouts.getMainOutputChannelSet() != layouts.getMainInputChannelSet()) return false;
 #endif
 
   return true;
@@ -169,8 +163,8 @@ bool TestpluginAudioProcessor::hasEditor() const {
 }
 
 juce::AudioProcessorEditor *TestpluginAudioProcessor::createEditor() {
-   return new TestpluginAudioProcessorEditor(*this);
- // return new juce::GenericAudioProcessorEditor(*this);
+  return new TestpluginAudioProcessorEditor(*this);
+  // return new juce::GenericAudioProcessorEditor(*this);
 }
 
 //==============================================================================
@@ -183,8 +177,7 @@ void TestpluginAudioProcessor::getStateInformation(juce::MemoryBlock &destData) 
   apvts.state.writeToStream(mos);
 }
 
-void TestpluginAudioProcessor::setStateInformation(const void *data,
-                                                   int sizeInBytes) {
+void TestpluginAudioProcessor::setStateInformation(const void *data, int sizeInBytes) {
   // You should use this method to restore your parameters from this memory
   // block, whose contents will have been created by the getStateInformation()
   // call.
@@ -206,39 +199,33 @@ ChainSettings getChainSettings(juce::AudioProcessorValueTreeState &apvts) {
   settings.peakFreq = apvts.getRawParameterValue("Peak Freq")->load();
   settings.peakGainInDecibels = apvts.getRawParameterValue("Peak Gain")->load();
   settings.peakQuality = apvts.getRawParameterValue("Peak Quality")->load();
-  settings.lowCutSlope =
-      static_cast<Slope>(apvts.getRawParameterValue("LowCut Slope")->load());
-  settings.highCutSlope =
-      static_cast<Slope>(apvts.getRawParameterValue("HighCut Slope")->load());
+  settings.lowCutSlope = static_cast<Slope>(apvts.getRawParameterValue("LowCut Slope")->load());
+  settings.highCutSlope = static_cast<Slope>(apvts.getRawParameterValue("HighCut Slope")->load());
 
   return settings;
 }
 
-void TestpluginAudioProcessor::updatePeakFilter(const ChainSettings &chainSettings) {
-  auto peakCoefficients = juce::dsp::IIR::Coefficients<float>::makePeakFilter(
-      getSampleRate(), chainSettings.peakFreq, chainSettings.peakQuality,
+Coefficients makePeakFilter(const ChainSettings &chainSettings, double sampleRate) {
+  return juce::dsp::IIR::Coefficients<float>::makePeakFilter(
+      sampleRate, chainSettings.peakFreq, chainSettings.peakQuality,
       juce::Decibels::decibelsToGain(chainSettings.peakGainInDecibels));
-
-  // *leftChain.get<ChainPositions::Peak>().coefficients = *peakCoefficients;
-  // *rightChain.get<ChainPositions::Peak>().coefficients = *peakCoefficients;
-
-  updateCoefficients(leftChain.get<ChainPositions::Peak>().coefficients,
-                     peakCoefficients);
-  updateCoefficients(rightChain.get<ChainPositions::Peak>().coefficients,
-                     peakCoefficients);
 }
 
-void TestpluginAudioProcessor::updateCoefficients(Coefficients &old,
-                                                  const Coefficients &replacements) {
+void TestpluginAudioProcessor::updatePeakFilter(const ChainSettings &chainSettings) {
+  auto peakCoefficients = makePeakFilter(chainSettings, getSampleRate());
+
+  updateCoefficients(leftChain.get<ChainPositions::Peak>().coefficients, peakCoefficients);
+  updateCoefficients(rightChain.get<ChainPositions::Peak>().coefficients, peakCoefficients);
+}
+
+void updateCoefficients(Coefficients &old, const Coefficients &replacements) {
   *old = *replacements;
 }
 
-void TestpluginAudioProcessor::updateLowCutFilters(
-    const ChainSettings &chainSettings) {
+void TestpluginAudioProcessor::updateLowCutFilters(const ChainSettings &chainSettings) {
   auto lowCutCoefficients =
       juce::dsp::FilterDesign<float>::designIIRHighpassHighOrderButterworthMethod(
-          chainSettings.lowCutFreq, getSampleRate(),
-          2 * (chainSettings.lowCutSlope + 1));
+          chainSettings.lowCutFreq, getSampleRate(), 2 * (chainSettings.lowCutSlope + 1));
 
   auto &leftLowCut = leftChain.get<ChainPositions::LowCut>();
   auto &rightLowCut = rightChain.get<ChainPositions::LowCut>();
@@ -247,12 +234,10 @@ void TestpluginAudioProcessor::updateLowCutFilters(
   updateCutFilter(rightLowCut, lowCutCoefficients, chainSettings.lowCutSlope);
 }
 
-void TestpluginAudioProcessor::updateHighCutFilters(
-    const ChainSettings &chainSettings) {
+void TestpluginAudioProcessor::updateHighCutFilters(const ChainSettings &chainSettings) {
   auto highCutCoefficients =
       juce::dsp::FilterDesign<float>::designIIRHighpassHighOrderButterworthMethod(
-          chainSettings.highCutFreq, getSampleRate(),
-          2 * (chainSettings.highCutSlope + 1));
+          chainSettings.highCutFreq, getSampleRate(), 2 * (chainSettings.highCutSlope + 1));
 
   auto &leftHighCut = leftChain.get<ChainPositions::HighCut>();
   auto &rightHighCut = rightChain.get<ChainPositions::HighCut>();
@@ -273,24 +258,21 @@ TestpluginAudioProcessor::createParameterLayout() {
   juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
-      "LowCut Freq", "LowCut Freq",
-      juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f), 20.f));
+      "LowCut Freq", "LowCut Freq", juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f),
+      20.f));
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
-      "HighCut Freq", "HighCut Freq",
-      juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f), 20'000.f));
+      "HighCut Freq", "HighCut Freq", juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f),
+      20'000.f));
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
-      "Peak Freq", "Peak Freq",
-      juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f), 750.f));
+      "Peak Freq", "Peak Freq", juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f), 750.f));
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
-      "Peak Gain", "Peak Gain",
-      juce::NormalisableRange<float>(-24.f, 24.f, 0.5f, 1.f), 0.f));
+      "Peak Gain", "Peak Gain", juce::NormalisableRange<float>(-24.f, 24.f, 0.5f, 1.f), 0.f));
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
-      "Peak Quality", "Peak Quality",
-      juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f), 1.f));
+      "Peak Quality", "Peak Quality", juce::NormalisableRange<float>(0.1f, 10.f, 0.05f, 1.f), 1.f));
 
   juce::StringArray stringArray;
   for (int j = 0; j < 4; ++j) {
@@ -300,10 +282,10 @@ TestpluginAudioProcessor::createParameterLayout() {
     stringArray.add(str);
   }
 
-  layout.add(std::make_unique<juce::AudioParameterChoice>(
-      "LowCut Slope", "LowCut Slope", stringArray, 0));
-  layout.add(std::make_unique<juce::AudioParameterChoice>(
-      "HighCut Slope", "HighCut Slope", stringArray, 0));
+  layout.add(
+      std::make_unique<juce::AudioParameterChoice>("LowCut Slope", "LowCut Slope", stringArray, 0));
+  layout.add(std::make_unique<juce::AudioParameterChoice>("HighCut Slope", "HighCut Slope",
+                                                          stringArray, 0));
 
   return layout;
 }
@@ -312,6 +294,4 @@ TestpluginAudioProcessor::createParameterLayout() {
 
 //==============================================================================
 // This creates new instances of the plugin..
-juce::AudioProcessor *JUCE_CALLTYPE createPluginFilter() {
-  return new TestpluginAudioProcessor();
-}
+juce::AudioProcessor *JUCE_CALLTYPE createPluginFilter() { return new TestpluginAudioProcessor(); }
