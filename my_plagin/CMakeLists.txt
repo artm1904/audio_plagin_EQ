@@ -55,10 +55,10 @@ juce_add_plugin(${PROJECT_NAME}
     PRODUCT_NAME "eq_plagin"
 )
 
-juce_add_binary_data(JuceLogoBinary
-    SOURCES
-    assets/juce-logo.svg
-    )
+# juce_add_binary_data(JuceLogoBinary
+#     SOURCES
+#     assets/juce-logo.svg
+#     )
 
 
 target_sources(${PROJECT_NAME}
@@ -88,7 +88,7 @@ target_link_libraries(${PROJECT_NAME}
     # AudioPluginData           # If we'd created a binary data target, we'd link to it here
     juce::juce_audio_utils
     PUBLIC
-    JuceLogoBinary
+   # JuceLogoBinary
     juce::juce_recommended_config_flags
     juce::juce_recommended_lto_flags
     juce::juce_recommended_warning_flags

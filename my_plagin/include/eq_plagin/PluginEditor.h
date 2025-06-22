@@ -8,10 +8,13 @@
 
 #pragma once
 
-
-
 #include "eq_plagin/PluginProcessor.h"
 
+struct CustomRotarySlider : juce::Slider {
+  CustomRotarySlider()
+      : juce::Slider(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag,
+                     juce::Slider::TextEntryBoxPosition::NoTextBox) {}
+};
 
 //==============================================================================
 /**
@@ -29,6 +32,14 @@ class TestpluginAudioProcessorEditor : public juce::AudioProcessorEditor {
   // This reference is provided as a quick way for your editor to
   // access the processor object that created it.
   TestpluginAudioProcessor &audioProcessor;
+
+  CustomRotarySlider peakFreqSlider, peakGainSlider, peakQualitySlider,
+      lowCutFreqSlider, highCutFreqSlider;
+
+  CustomRotarySlider lowCutSlopeSlider, highCutSlopeSlider;
+
+  std::vector<juce::Component *> getComps();
+
   std::unique_ptr<juce::Drawable> svgimg;
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessorEditor)
 };

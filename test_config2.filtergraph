@@ -65,7 +65,7 @@
           uiLastX_Normal="2592" uiLastY_Normal="163" uiopen_Normal="0">
     <PLUGIN name="play_audio" format="VST3" category="Fx" manufacturer="play_audio"
             version="0.1.0" file="/home/artm1904/Program/c++/juce/audio_plagin_EQ/build/play_audio/play_audio_artefacts/Debug/VST3/play_audio.vst3/Contents/x86_64-linux/play_audio.so"
-            uniqueId="cbe58eff" isInstrument="0" fileTime="197897c1560" infoUpdateTime="197975f3fd5"
+            uniqueId="cbe58eff" isInstrument="0" fileTime="197897c1560" infoUpdateTime="19797600006"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="1f15cab6"/>
     <STATE>278.VMjLgzP....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9DiLz3BTIISX1UEaho2ZVkUdAAkKAwDUigWRWkEcQ0VTucmUY4BQtjTQ2HjV0AiUYUGQrIldvXESz3xPMUGT5ElLzXTX0UjQYkGNREFLMckVoQCdicVVG4hKt3hKt3hKt3hKt3hRUACTEEzZh8VVWgkdUYTTmE0UX4BQP4hPqcjXm0jLh4BQP4xPt.0Qt3hKt3hKt3hKtQUUCUEQTg2ZrM1YQcUVDUjQicVP77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9..</STATE>
@@ -78,14 +78,14 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <FILTER uid="15" x="0.4887005649717514" y="0.5687203791469194" useARA="0"
-          uiLastX_Normal="2883" uiLastY_Normal="148" uiopen_Normal="0">
+  <FILTER uid="16" x="0.5677966101694916" y="0.6492890995260664" useARA="0"
+          uiLastX_Normal="2586" uiLastY_Normal="356" uiopen_Normal="0">
     <PLUGIN name="eq_plagin" format="VST3" category="Fx" manufacturer="atm1904"
             version="0.1.0" file="/home/artm1904/Program/c++/juce/audio_plagin_EQ/build/my_plagin/eq_plagin_artefacts/Debug/VST3/eq_plagin.vst3/Contents/x86_64-linux/eq_plagin.so"
-            uniqueId="cbe58eff" isInstrument="0" fileTime="197975eb9a8" infoUpdateTime="197975f3fd5"
+            uniqueId="cbe58eff" isInstrument="0" fileTime="197975eb9a8" infoUpdateTime="19797600007"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="1f15cab6"/>
-    <STATE>622.VMjLgTl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCNx3BTEwlXmAiUYoWRxHlKt.kKG4RUPIUQTMkKDYlKuEkQtDzLPEDRqESVt0DUioWPnEEdUYkXtf0UXIWUWkkKDAkPD4hKt3hKt3BRN0DTt3RUPIUQTMkKDYlKuEkQtDzMPEDRqESVt0DUioWP3Qkb3XjXqEjYic1cVM1ZAAkKIAkKt3hKt3hKt3hKt3hKTETRUAUSAAkKBolQY4BQPMTQ1oWXxzDUioWPnEEdUYkXtf0UXIWUWkkKDAkPD4hKt3hKt3BdFoDTt3RUPIUQTMkKDYlKuEkQtDzLPEDS3DyXCU0QiYFSEEVcAcUVtf0UXIWUWkkKDAkPD4hKt3hKt3hKt3hKt3RUPIUQTMkKDYlKuEkQtDjbPEDTUYEVwEDZQgWUVIlKXcEVxU0UY4BQPIDQt3hKt3hKtX2XHAkKtTETRUDUS4BQl4xaQYjKAIGTAAUUVgUbAgWTmsFag4BVWgkbUcUVtPDTBQjKt3hKt3hKt3hKt3hKUAkTEQ0TtPjYt7VTF4RPy.UPPUkUXEWPRQELEYTXuE0Uj4BVWgkbUcUVtPDTBQjKt3hKt3hKt3xJO4hKt3hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEVtPDTtHzZGI1YMIiXtPDTtLjKPcjKt3hKt3hKt3haTU0PUQDU3sFaicVTWkEQEYzXmEDOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
+    <STATE>622.VMjLgTl....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9LCNx3BTEwlXmAiUYoWRxHlKt.kKG4RUPIUQTMkKDYlKuEkQtDzLPEDRqESVt0DUioWPnEEdUYkXtf0UXIWUWkkKDAkPD4hKt3hKt3haGgDTt3RUPIUQTMkKDYlKuEkQtDzMPEDRqESVt0DUioWP3Qkb3XjXqEjYic1cVM1ZAAkKIAkKt3hKt3hKt3hKt3hKTETRUAUSAAkKBolQY4BQPMTQ1oWXxzDUioWPnEEdUYkXtf0UXIWUWkkKDAkPD4hKt3hKt3hKPMDTt3RUPIUQTMkKDYlKuEkQtDzLPEDS3DyXCU0QiYFSEEVcAcUVtf0UXIWUWkkKDAkPD4hKt3hKt3hKt3hKt3RUPIUQTMkKDYlKuEkQtDjbPEDTUYEVwEDZQgWUVIlKXcEVxU0UY4BQPIDQt3hKt3hKtX2XHAkKtTETRUDUS4BQl4xaQYjKAIGTAAUUVgUbAgWTmsFag4BVWgkbUcUVtPDTBQjKt3hKt3hKt3hKt3hKUAkTEQ0TtPjYt7VTF4RPy.UPPUkUXEWPRQELEYTXuE0Uj4BVWgkbUcUVtPDTBQjKt3hKt3hKt3xJO4hKt3hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEVtPDTtHzZGI1YMIiXtPDTtLjKPcjKt3hKt3hKt3haTU0PUQDU3sFaicVTWkEQEYzXmEDOujzPu0Fbu4VYtQmO77hUSQ0LPwVcmklaSQWXzUlO..</STATE>
     <LAYOUT>
       <INPUTS>
         <BUS index="0" layout="L R"/>
@@ -97,8 +97,8 @@
   </FILTER>
   <CONNECTION srcFilter="1" srcChannel="0" dstFilter="7" dstChannel="0"/>
   <CONNECTION srcFilter="1" srcChannel="1" dstFilter="7" dstChannel="1"/>
-  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="15" dstChannel="0"/>
-  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="15" dstChannel="1"/>
-  <CONNECTION srcFilter="15" srcChannel="0" dstFilter="3" dstChannel="0"/>
-  <CONNECTION srcFilter="15" srcChannel="1" dstFilter="3" dstChannel="1"/>
+  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="16" dstChannel="0"/>
+  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="16" dstChannel="1"/>
+  <CONNECTION srcFilter="16" srcChannel="0" dstFilter="3" dstChannel="0"/>
+  <CONNECTION srcFilter="16" srcChannel="1" dstFilter="3" dstChannel="1"/>
 </FILTERGRAPH>
