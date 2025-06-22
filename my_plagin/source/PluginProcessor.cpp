@@ -259,7 +259,7 @@ TestpluginAudioProcessor::createParameterLayout() {
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
       "HighCut Freq", "HighCut Freq", juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f),
-      20'000.f));
+      20.000f));
 
   layout.add(std::make_unique<juce::AudioParameterFloat>(
       "Peak Freq", "Peak Freq", juce::NormalisableRange<float>(20.f, 20'000.f, 1.f, 0.25f), 750.f));

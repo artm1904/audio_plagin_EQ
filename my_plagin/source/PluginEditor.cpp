@@ -37,7 +37,7 @@ TestpluginAudioProcessorEditor::TestpluginAudioProcessorEditor(TestpluginAudioPr
     param->addListener(this);
   }
 
-    startTimerHz(60);
+  startTimerHz(60);
 
   setSize(600, 500);
   // load Image from BinaryData
@@ -161,14 +161,19 @@ void TestpluginAudioProcessorEditor::parameterValueChanged(int parameterIndex, f
 
 void TestpluginAudioProcessorEditor::timerCallback() {
   if (parametersChanged.compareAndSetBool(false, true)) {
-
-
-    //DBG("parameters changed");
-    // update the monoichaon
+    // DBG("parameters changed");
+    //  update the monoichaon
     auto chainSettings = getChainSettings(audioProcessor.apvts);
     auto peakCoefficients = makePeakFilter(chainSettings, audioProcessor.getSampleRate());
     updateCoefficients(monoChain.get<ChainPositions::Peak>().coefficients, peakCoefficients);
 
+    auto lowCutCoefficients = makeLowCutFilter(chainSettings, audioProcessor.getSampleRate());
+    auto highCutCoefficients = makeHighCutFilter(chainSettings, audioProcessor.getSampleRate());
+
+    updateCutFilter(monoChain.get<ChainPositions::LowCut>(), lowCutCoefficients,
+                    chainSettings.lowCutSlope);
+    updateCutFilter(monoChain.get<ChainPositions::HighCut>(), highCutCoefficients,
+                    chainSettings.highCutSlope);
 
     // signal a repeint
     repaint();
