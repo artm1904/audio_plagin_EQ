@@ -44,6 +44,10 @@ class TestpluginAudioProcessorEditor : public juce::AudioProcessorEditor {
 
   std::vector<juce::Component *> getComps();
 
-  std::unique_ptr<juce::Drawable> svgimg;
+
+  MonoChain monoChain;
+
+
+  //std::unique_ptr<juce::Drawable> svgimg;
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessorEditor)
 };

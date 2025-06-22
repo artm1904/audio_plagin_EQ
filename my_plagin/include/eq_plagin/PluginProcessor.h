@@ -26,6 +26,12 @@ struct ChainSettings {
 
 ChainSettings getChainSettings(juce::AudioProcessorValueTreeState &apvts);
 
+using Filter = juce::dsp::IIR::Filter<float>;
+using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter>;
+using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
+
+enum ChainPositions { LowCut, Peak, HighCut };
+
 //==============================================================================
 /**
  */
@@ -71,40 +77,30 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
   //======================My_user_code_begin_here================================
 
   static juce::AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
-  juce::AudioProcessorValueTreeState apvts{*this, nullptr, "Parametrs",
-                                           createParameterLayout()};
+  juce::AudioProcessorValueTreeState apvts{*this, nullptr, "Parametrs", createParameterLayout()};
 
   //======================My_user_code_end_here================================
 
  private:
   //======================My_user_code_begin_here================================
 
-  using Filter = juce::dsp::IIR::Filter<float>;
-  using CutFilter = juce::dsp::ProcessorChain<Filter, Filter, Filter, Filter>;
-  using MonoChain = juce::dsp::ProcessorChain<CutFilter, Filter, CutFilter>;
-
   MonoChain leftChain, rightChain;
-
-  enum ChainPositions { LowCut, Peak, HighCut };
 
   //======================My_user_code_end_here================================
 
   void updatePeakFilter(const ChainSettings &chainSettings);
 
   using Coefficients = Filter::CoefficientsPtr;
-  static void updateCoefficients(Coefficients &old,
-                                 const Coefficients &replacements);
+  static void updateCoefficients(Coefficients &old, const Coefficients &replacements);
 
   template <int Index, typename ChainType, typename CoefficientType>
   void update(ChainType &chain, const CoefficientType &coefficients) {
-    updateCoefficients(chain.template get<Index>().coefficients,
-                       coefficients[Index]);
+    updateCoefficients(chain.template get<Index>().coefficients, coefficients[Index]);
     chain.template setBypassed<Index>(false);
   }
 
   template <typename ChainType, typename CoefficientType>
-  void updateCutFilter(ChainType &chain, const CoefficientType &coefficients,
-                       const Slope &slope) {
+  void updateCutFilter(ChainType &chain, const CoefficientType &coefficients, const Slope &slope) {
     chain.template setBypassed<0>(true);
     chain.template setBypassed<1>(true);
     chain.template setBypassed<2>(true);
@@ -126,15 +122,10 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
     }
   }
 
-
-
-
   void updateLowCutFilters(const ChainSettings &chainSettings);
   void updateHighCutFilters(const ChainSettings &chainSettings);
 
-
   void updateFilters();
-
 
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessor)
