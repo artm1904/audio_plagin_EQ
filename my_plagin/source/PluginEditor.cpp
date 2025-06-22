@@ -32,13 +32,25 @@ TestpluginAudioProcessorEditor::TestpluginAudioProcessorEditor(TestpluginAudioPr
     addAndMakeVisible(comp);
   }
 
+  const auto &params = audioProcessor.getParameters();
+  for (auto param : params) {
+    param->addListener(this);
+  }
+
+    startTimerHz(60);
+
   setSize(600, 500);
   // load Image from BinaryData
   // svgimg = juce::Drawable::createFromImageData(BinaryData::jucelogo_svg,
   //                                              BinaryData::jucelogo_svgSize);
 }
 
-TestpluginAudioProcessorEditor::~TestpluginAudioProcessorEditor() {}
+TestpluginAudioProcessorEditor::~TestpluginAudioProcessorEditor() {
+  const auto &params = audioProcessor.getParameters();
+  for (auto param : params) {
+    param->removeListener(this);
+  }
+}
 
 //==============================================================================
 void TestpluginAudioProcessorEditor::paint(juce::Graphics &g) {
@@ -110,7 +122,6 @@ void TestpluginAudioProcessorEditor::paint(juce::Graphics &g) {
 
   responseCurve.startNewSubPath(responseArea.getX(), map(mags.front()));
 
-
   for (size_t i = 1; i < mags.size(); ++i) {
     responseCurve.lineTo(responseArea.getX() + i, map(mags[i]));
   }
@@ -121,8 +132,6 @@ void TestpluginAudioProcessorEditor::paint(juce::Graphics &g) {
   g.setColour(Colours::white);
 
   g.strokePath(responseCurve, PathStrokeType(2.f));
-
-
 }
 
 void TestpluginAudioProcessorEditor::resized() {
@@ -146,25 +155,27 @@ void TestpluginAudioProcessorEditor::resized() {
   peakQualitySlider.setBounds(bounds);
 }
 
-
 void TestpluginAudioProcessorEditor::parameterValueChanged(int parameterIndex, float newValue) {
-  
   parametersChanged.set(true);
 }
 
 void TestpluginAudioProcessorEditor::timerCallback() {
-if (parametersChanged.compareAndSetBool(false, true)) {
+  if (parametersChanged.compareAndSetBool(false, true)) {
 
-      //update the monoichaon
-      //signal a repeint 
+
+    //DBG("parameters changed");
+    // update the monoichaon
+    auto chainSettings = getChainSettings(audioProcessor.apvts);
+    auto peakCoefficients = makePeakFilter(chainSettings, audioProcessor.getSampleRate());
+    updateCoefficients(monoChain.get<ChainPositions::Peak>().coefficients, peakCoefficients);
+
+
+    // signal a repeint
+    repaint();
+  }
 }
-
-}
-
 
 std::vector<juce::Component *> TestpluginAudioProcessorEditor::getComps() {
   return {&peakFreqSlider,    &peakGainSlider,    &peakQualitySlider, &lowCutFreqSlider,
           &highCutFreqSlider, &lowCutSlopeSlider, &highCutSlopeSlider};
 }
-
-
