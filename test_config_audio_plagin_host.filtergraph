@@ -62,10 +62,10 @@
     </LAYOUT>
   </FILTER>
   <FILTER uid="7" x="0.4592592592592593" y="0.2792642140468227" useARA="0"
-          uiLastX_Normal="2778" uiLastY_Normal="237" uiopen_Normal="0">
+          uiLastX_Normal="2767" uiLastY_Normal="221" uiopen_Normal="0">
     <PLUGIN name="play_audio" format="VST3" category="Fx" manufacturer="play_audio"
             version="0.1.0" file="/home/artm1904/Program/c++/juce/audio_plagin_EQ/build/play_audio/play_audio_artefacts/Debug/VST3/play_audio.vst3/Contents/x86_64-linux/play_audio.so"
-            uniqueId="cbe58eff" isInstrument="0" fileTime="197897c1560" infoUpdateTime="19796d92bec"
+            uniqueId="cbe58eff" isInstrument="0" fileTime="197897c1560" infoUpdateTime="19797381f83"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="1f15cab6"/>
     <STATE>278.VMjLgzP....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9DiLz3BTIISX1UEaho2ZVkUdAAkKAwDUigWRWkEcQ0VTucmUY4BQtjTQ2HjV0AiUYUGQrIldvXESz3xPMUGT5ElLzXTX0UjQYkGNREFLMckVoQCdicVVG4hKt3hKt3hKt3hKt3hRUACTEEzZh8VVWgkdUYTTmE0UX4BQP4hPqcjXm0jLh4BQP4xPt.0Qt3hKt3hKt3hKtQUUCUEQTg2ZrM1YQcUVDUjQicVP77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9..</STATE>
@@ -78,11 +78,11 @@
       </OUTPUTS>
     </LAYOUT>
   </FILTER>
-  <FILTER uid="11" x="0.5112994350282486" y="0.5687203791469194" useARA="0"
-          uiLastX_Normal="3828" uiLastY_Normal="302" uiopen_Normal="0">
+  <FILTER uid="12" x="0.5" y="0.6113744075829384" useARA="0" uiLastX_Normal="4017"
+          uiLastY_Normal="342" uiopen_Normal="0">
     <PLUGIN name="eq_plagin" format="VST3" category="Fx" manufacturer="atm1904"
             version="0.1.0" file="/home/artm1904/Program/c++/juce/audio_plagin_EQ/build/my_plagin/eq_plagin_artefacts/Debug/VST3/eq_plagin.vst3/Contents/x86_64-linux/eq_plagin.so"
-            uniqueId="cbe58eff" isInstrument="0" fileTime="19796d7d668" infoUpdateTime="19796d92bed"
+            uniqueId="cbe58eff" isInstrument="0" fileTime="1979736b390" infoUpdateTime="19797381f83"
             numInputs="2" numOutputs="2" isShell="0" hasARAExtension="0"
             uid="1f15cab6"/>
     <STATE>191.VMjLgXK....O+fWarAhckI2bo8la8HRLt.iHfTlai8FYo41Y8HRUTYTK3HxO9.BOVMEUy.Ea0cVZtMEcgQWY9vSRC8Vav8lak4Fc9XCLt3hKt3hKt3hKt3hYRUUSTEETIckVwTjQisVTTgkdEYjKAQjYPQSPWgUdMcjKAQjct3hdA4hKt3hKt3hKtnTUv.UQAslXuk0UXoWUFE0YQcEV77RRC8Vav8lak4Fc9vyKVMEUy.Ea0cVZtMEcgQWY9..</STATE>
@@ -97,8 +97,8 @@
   </FILTER>
   <CONNECTION srcFilter="1" srcChannel="0" dstFilter="7" dstChannel="0"/>
   <CONNECTION srcFilter="1" srcChannel="1" dstFilter="7" dstChannel="1"/>
-  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="11" dstChannel="0"/>
-  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="11" dstChannel="1"/>
-  <CONNECTION srcFilter="11" srcChannel="0" dstFilter="3" dstChannel="0"/>
-  <CONNECTION srcFilter="11" srcChannel="1" dstFilter="3" dstChannel="1"/>
+  <CONNECTION srcFilter="7" srcChannel="0" dstFilter="12" dstChannel="0"/>
+  <CONNECTION srcFilter="7" srcChannel="1" dstFilter="12" dstChannel="1"/>
+  <CONNECTION srcFilter="12" srcChannel="0" dstFilter="3" dstChannel="0"/>
+  <CONNECTION srcFilter="12" srcChannel="1" dstFilter="3" dstChannel="1"/>
 </FILTERGRAPH>
