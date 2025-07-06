@@ -13,7 +13,7 @@
 struct LookAndFeel : public juce::LookAndFeel_V4 {
   virtual void drawRotarySlider(juce::Graphics &, int x, int y, int width, int height,
                                 float sliderPosProportional, float rotaryStartAngle,
-                                float rotaryEndAngle, juce::Slider &) override {};
+                                float rotaryEndAngle, juce::Slider &) override ;
 };
 
 struct RotarySliderWithLabels : juce::Slider {
@@ -27,7 +27,7 @@ struct RotarySliderWithLabels : juce::Slider {
 
   ~RotarySliderWithLabels() { setLookAndFeel(nullptr); }
 
-  void paint(juce::Graphics &g) override {};
+  void paint(juce::Graphics &g) override ;
 
   juce::Rectangle<int> getSliderBounds() const;
   int getTextHeight() const { return 14; }
