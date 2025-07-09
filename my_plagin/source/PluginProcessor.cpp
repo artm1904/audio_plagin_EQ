@@ -87,6 +87,9 @@ void TestpluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBl
   auto chainSettings = getChainSettings(apvts);
 
   updateFilters();
+
+  leftChannelFifo.prepare(samplesPerBlock);
+  rightChannelFifo.prepare(samplesPerBlock);
 }
 
 void TestpluginAudioProcessor::releaseResources() {
@@ -149,6 +152,12 @@ void TestpluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
 
   leftChain.process(leftContext);
   rightChain.process(rightContext);
+
+
+  leftChannelFifo.update(buffer);
+  rightChannelFifo.update(buffer);
+
+
 
   for (int channel = 0; channel < totalNumInputChannels; ++channel) {
     auto *channelData = buffer.getWritePointer(channel);
