@@ -262,6 +262,8 @@ class TestpluginAudioProcessor : public juce::AudioProcessor {
 
   void updateFilters();
 
+  juce::dsp::Oscillator<float> osc;
+
   //==============================================================================
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestpluginAudioProcessor)
 };

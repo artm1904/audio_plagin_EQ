@@ -90,6 +90,13 @@ void TestpluginAudioProcessor::prepareToPlay(double sampleRate, int samplesPerBl
 
   leftChannelFifo.prepare(samplesPerBlock);
   rightChannelFifo.prepare(samplesPerBlock);
+
+  osc.initialise([](float x) { return std::sin(x); });
+
+  spec.numChannels = getTotalNumOutputChannels();
+
+  osc.prepare(spec);
+  osc.setFrequency(100.f);
 }
 
 void TestpluginAudioProcessor::releaseResources() {
@@ -144,6 +151,14 @@ void TestpluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   updateFilters();
 
   juce::dsp::AudioBlock<float> block(buffer);
+
+  
+  // buffer.clear();
+  // juce::dsp::ProcessContextReplacing<float> stereoContex(block);
+  // osc.process(stereoContex); 
+
+
+
   auto leftBlock = block.getSingleChannelBlock(0);
   auto rightBlock = block.getSingleChannelBlock(1);
 
@@ -153,11 +168,8 @@ void TestpluginAudioProcessor::processBlock(juce::AudioBuffer<float> &buffer,
   leftChain.process(leftContext);
   rightChain.process(rightContext);
 
-
   leftChannelFifo.update(buffer);
   rightChannelFifo.update(buffer);
-
-
 
   for (int channel = 0; channel < totalNumInputChannels; ++channel) {
     auto *channelData = buffer.getWritePointer(channel);
